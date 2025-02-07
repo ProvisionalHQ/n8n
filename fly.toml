@@ -1,0 +1,23 @@
+app = "n8n-app"          # Replace with your app name
+primary_region = "dfw"    # Replace with your chosen region
+
+[build]
+  image = "n8nio/n8n:latest"  # Use the official n8n image or adjust if using a custom one
+
+[env]
+  N8N_BASIC_AUTH_ACTIVE = "true"
+  N8N_BASIC_AUTH_USER = "yourusername"   # Replace with your chosen user
+  N8N_BASIC_AUTH_PASSWORD = "yourpassword" # Replace with your chosen password
+  # Additional env variables can go here
+
+[[services]]
+  internal_port = 5678         # n8n default port
+  protocol = "tcp"
+
+  [services.concurrency]
+    soft_limit = 20
+    hard_limit = 25
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
