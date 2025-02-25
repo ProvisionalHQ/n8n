@@ -7,7 +7,7 @@ import {
 	REGULAR_NODE_CREATOR_VIEW,
 } from '@/constants';
 import type { INodeCreateElement } from '@/Interface';
-import { parseCanvasConnectionHandleString } from '@/utils/canvasUtilsV2';
+import { parseCanvasConnectionHandleString } from '@/utils/canvasUtils';
 import { NodeConnectionType } from 'n8n-workflow';
 import { CanvasConnectionMode } from '@/types';
 
@@ -18,6 +18,7 @@ const mode = 'mode';
 const now = 1717602004819;
 const now1 = 1718602004819;
 const node_type = 'node-type';
+const node_id = 'node-id';
 const node_version = 1;
 const input_node_type = 'input-node-type';
 const action = 'action';
@@ -55,7 +56,7 @@ vi.mock('@/stores/workflows.store', () => {
 	};
 });
 
-vi.mock('@/utils/canvasUtilsV2', () => {
+vi.mock('@/utils/canvasUtils', () => {
 	return {
 		parseCanvasConnectionHandleString: vi.fn(),
 	};
@@ -164,6 +165,7 @@ describe('useNodeCreatorStore', () => {
 			workflow_id,
 		});
 		nodeCreatorStore.onNodeAddedToCanvas({
+			node_id,
 			node_type,
 			node_version,
 			is_auto_add: true,
@@ -175,6 +177,7 @@ describe('useNodeCreatorStore', () => {
 		expect(useTelemetry().track).toHaveBeenCalledWith(
 			'User added node to workflow canvas',
 			{
+				node_id,
 				node_type,
 				node_version,
 				is_auto_add: true,

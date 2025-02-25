@@ -31,7 +31,7 @@ import { useNodeTypesStore } from '@/stores/nodeTypes.store';
 import {
 	createCanvasConnectionHandleString,
 	parseCanvasConnectionHandleString,
-} from '@/utils/canvasUtilsV2';
+} from '@/utils/canvasUtils';
 import type { Connection } from '@vue-flow/core';
 import { CanvasConnectionMode } from '@/types';
 import { isVueFlowConnection } from '@/utils/typeGuards';
@@ -355,6 +355,7 @@ export const useNodeCreatorStore = defineStore(STORES.NODE_CREATOR, () => {
 	}
 
 	function onNodeAddedToCanvas(properties: {
+		node_id: string;
 		node_type: string;
 		node_version: number;
 		is_auto_add?: boolean;
